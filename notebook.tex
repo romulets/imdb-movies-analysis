@@ -1,0 +1,2130 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{what\_does\_make\_a\_movie\_successful}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Project: What does make a movie
+successful?}\label{project-what-does-make-a-movie-successful}
+
+\subsection{Table of Contents}\label{table-of-contents}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+     \#\# Introduction
+
+In this project we are going to try to understand: what does make a
+movie successful? What does impact in the revenue? Is it the year? Is it
+a super star? Is it the popularity? Let's find out!
+
+    So first, let's import the necessary libs to our analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{o}{\PYZpc{}} \PY{n}{matplotlib} \PY{n}{inline}
+\end{Verbatim}
+
+
+     \#\# Data Wrangling
+
+In this section we are going to know our dataset better.
+
+\subsubsection{General Properties}\label{general-properties}
+
+    Reading the dataset:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmdb\PYZhy{}movies.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's see which columns does the dataset has
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10866 entries, 0 to 10865
+Data columns (total 21 columns):
+id                      10866 non-null int64
+imdb\_id                 10856 non-null object
+popularity              10866 non-null float64
+budget                  10866 non-null int64
+revenue                 10866 non-null int64
+original\_title          10866 non-null object
+cast                    10790 non-null object
+homepage                2936 non-null object
+director                10822 non-null object
+tagline                 8042 non-null object
+keywords                9373 non-null object
+overview                10862 non-null object
+runtime                 10866 non-null int64
+genres                  10843 non-null object
+production\_companies    9836 non-null object
+release\_date            10866 non-null object
+vote\_count              10866 non-null int64
+vote\_average            10866 non-null float64
+release\_year            10866 non-null int64
+budget\_adj              10866 non-null float64
+revenue\_adj             10866 non-null float64
+dtypes: float64(4), int64(6), object(11)
+memory usage: 1.7+ MB
+
+    \end{Verbatim}
+
+    And how about the data? Let's take a look at a couple of them
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}        id    imdb\_id  popularity     budget     revenue  \textbackslash{}
+        0  135397  tt0369610   32.985763  150000000  1513528810   
+        1   76341  tt1392190   28.419936  150000000   378436354   
+        2  262500  tt2908446   13.112507  110000000   295238201   
+        3  140607  tt2488496   11.173104  200000000  2068178225   
+        4  168259  tt2820852    9.335014  190000000  1506249360   
+        
+                         original\_title  \textbackslash{}
+        0                Jurassic World   
+        1            Mad Max: Fury Road   
+        2                     Insurgent   
+        3  Star Wars: The Force Awakens   
+        4                     Furious 7   
+        
+                                                        cast  \textbackslash{}
+        0  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   
+        1  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}   
+        2  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}   
+        3  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}   
+        4  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}   
+        
+                                                    homepage          director  \textbackslash{}
+        0                      http://www.jurassicworld.com/   Colin Trevorrow   
+        1                        http://www.madmaxmovie.com/     George Miller   
+        2     http://www.thedivergentseries.movie/\#insurgent  Robert Schwentke   
+        3  http://www.starwars.com/films/star-wars-episod{\ldots}       J.J. Abrams   
+        4                           http://www.furious7.com/         James Wan   
+        
+                                 tagline      {\ldots}       \textbackslash{}
+        0              The park is open.      {\ldots}        
+        1             What a Lovely Day.      {\ldots}        
+        2     One Choice Can Destroy You      {\ldots}        
+        3  Every generation has a story.      {\ldots}        
+        4            Vengeance Hits Home      {\ldots}        
+        
+                                                    overview runtime  \textbackslash{}
+        0  Twenty-two years after the events of Jurassic {\ldots}     124   
+        1  An apocalyptic story set in the furthest reach{\ldots}     120   
+        2  Beatrice Prior must confront her inner demons {\ldots}     119   
+        3  Thirty years after defeating the Galactic Empi{\ldots}     136   
+        4  Deckard Shaw seeks revenge against Dominic Tor{\ldots}     137   
+        
+                                              genres  \textbackslash{}
+        0  Action|Adventure|Science Fiction|Thriller   
+        1  Action|Adventure|Science Fiction|Thriller   
+        2         Adventure|Science Fiction|Thriller   
+        3   Action|Adventure|Science Fiction|Fantasy   
+        4                      Action|Crime|Thriller   
+        
+                                        production\_companies release\_date vote\_count  \textbackslash{}
+        0  Universal Studios|Amblin Entertainment|Legenda{\ldots}       6/9/15       5562   
+        1  Village Roadshow Pictures|Kennedy Miller Produ{\ldots}      5/13/15       6185   
+        2  Summit Entertainment|Mandeville Films|Red Wago{\ldots}      3/18/15       2480   
+        3          Lucasfilm|Truenorth Productions|Bad Robot     12/15/15       5292   
+        4  Universal Pictures|Original Film|Media Rights {\ldots}       4/1/15       2947   
+        
+           vote\_average  release\_year    budget\_adj   revenue\_adj  
+        0           6.5          2015  1.379999e+08  1.392446e+09  
+        1           7.1          2015  1.379999e+08  3.481613e+08  
+        2           6.3          2015  1.012000e+08  2.716190e+08  
+        3           7.5          2015  1.839999e+08  1.902723e+09  
+        4           7.3          2015  1.747999e+08  1.385749e+09  
+        
+        [5 rows x 21 columns]
+\end{Verbatim}
+            
+    And do we have duplicates?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} False    10865
+        True         1
+        dtype: int64
+\end{Verbatim}
+            
+    As we can see we have a total of 10,866 rows and 21 columns, being one
+line duplicated.
+
+We have some useless information here. They are: - \texttt{imdb\_id} -
+\texttt{original\_title} - \texttt{tagline} - \texttt{overview} -
+\texttt{runtime} (we won't use it for our anylisis because the values
+are too close)
+
+I won't drop the \texttt{id} because it can be usefull for future
+analysis.
+
+I don't think the \texttt{homepage} information is useless. It could
+tell us something, like: To have a homepage does impact in the revenue?
+
+We have missing data, though. The columns with missing data are: -
+\texttt{cast} - \texttt{homepage} - \texttt{director} - \texttt{tagline}
+- \texttt{overview} - \texttt{runtime} - \texttt{genres} -
+\texttt{production\_companies}
+
+We have columns using the wrong data type: - \texttt{release\_date}
+
+We have columns which are trying to say the same thing to us, but in
+different measures. In the dataset description it says:
+
+\begin{quote}
+The final two columns ending with ``\_adj'' show the budget and revenue
+of the associated movie in terms of 2010 dollars, accounting for
+inflation over time.
+\end{quote}
+
+So the \texttt{budget} and \texttt{revenue} columns are "duplicated" to
+our research, we could the drop the columns to adjusted to the infaltion
+and make a fairer analysis.
+
+We also have composite data in some columns! It'd be nice to have them
+separated in other datasets for further analysis. The columns are: -
+\texttt{cast} - \texttt{genres} - \texttt{director} -
+\texttt{production\_companies} - \texttt{key\_words}
+
+    \subsubsection{Data Cleaning}\label{data-cleaning}
+
+Now let's use what we already learned from our dataset to clean it and
+make it a better dataset to search.
+
+\paragraph{1. Let's drop de duplicated
+data}\label{lets-drop-de-duplicated-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} False    10865
+        dtype: int64
+\end{Verbatim}
+            
+    \paragraph{2. Let's drop the useless
+rows}\label{lets-drop-the-useless-rows}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imdb\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tagline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{overview}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}        id  popularity                                               cast  \textbackslash{}
+        0  135397   32.985763  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   
+        1   76341   28.419936  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}   
+        2  262500   13.112507  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}   
+        3  140607   11.173104  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}   
+        4  168259    9.335014  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}   
+        
+                                                    homepage          director  \textbackslash{}
+        0                      http://www.jurassicworld.com/   Colin Trevorrow   
+        1                        http://www.madmaxmovie.com/     George Miller   
+        2     http://www.thedivergentseries.movie/\#insurgent  Robert Schwentke   
+        3  http://www.starwars.com/films/star-wars-episod{\ldots}       J.J. Abrams   
+        4                           http://www.furious7.com/         James Wan   
+        
+                                                    keywords  \textbackslash{}
+        0  monster|dna|tyrannosaurus rex|velociraptor|island   
+        1   future|chase|post-apocalyptic|dystopia|australia   
+        2  based on novel|revolution|dystopia|sequel|dyst{\ldots}   
+        3              android|spaceship|jedi|space opera|3d   
+        4                car race|speed|revenge|suspense|car   
+        
+                                              genres  \textbackslash{}
+        0  Action|Adventure|Science Fiction|Thriller   
+        1  Action|Adventure|Science Fiction|Thriller   
+        2         Adventure|Science Fiction|Thriller   
+        3   Action|Adventure|Science Fiction|Fantasy   
+        4                      Action|Crime|Thriller   
+        
+                                        production\_companies release\_date  vote\_count  \textbackslash{}
+        0  Universal Studios|Amblin Entertainment|Legenda{\ldots}       6/9/15        5562   
+        1  Village Roadshow Pictures|Kennedy Miller Produ{\ldots}      5/13/15        6185   
+        2  Summit Entertainment|Mandeville Films|Red Wago{\ldots}      3/18/15        2480   
+        3          Lucasfilm|Truenorth Productions|Bad Robot     12/15/15        5292   
+        4  Universal Pictures|Original Film|Media Rights {\ldots}       4/1/15        2947   
+        
+           vote\_average  release\_year    budget\_adj   revenue\_adj  
+        0           6.5          2015  1.379999e+08  1.392446e+09  
+        1           7.1          2015  1.379999e+08  3.481613e+08  
+        2           6.3          2015  1.012000e+08  2.716190e+08  
+        3           7.5          2015  1.839999e+08  1.902723e+09  
+        4           7.3          2015  1.747999e+08  1.385749e+09  
+\end{Verbatim}
+            
+    \paragraph{3. Let's handle the missing
+data}\label{lets-handle-the-missing-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 10865 entries, 0 to 10865
+Data columns (total 14 columns):
+id                      10865 non-null int64
+popularity              10865 non-null float64
+cast                    10789 non-null object
+homepage                2936 non-null object
+director                10821 non-null object
+keywords                9372 non-null object
+genres                  10842 non-null object
+production\_companies    9835 non-null object
+release\_date            10865 non-null object
+vote\_count              10865 non-null int64
+vote\_average            10865 non-null float64
+release\_year            10865 non-null int64
+budget\_adj              10865 non-null float64
+revenue\_adj             10865 non-null float64
+dtypes: float64(4), int64(3), object(7)
+memory usage: 1.2+ MB
+
+    \end{Verbatim}
+
+    Well, movies without \texttt{cast}, \texttt{director} or \texttt{genres}
+aren't useful for us. Let's drop them.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 10731 entries, 0 to 10865
+Data columns (total 14 columns):
+id                      10731 non-null int64
+popularity              10731 non-null float64
+cast                    10731 non-null object
+homepage                2893 non-null object
+director                10731 non-null object
+keywords                9306 non-null object
+genres                  10731 non-null object
+production\_companies    9772 non-null object
+release\_date            10731 non-null object
+vote\_count              10731 non-null int64
+vote\_average            10731 non-null float64
+release\_year            10731 non-null int64
+budget\_adj              10731 non-null float64
+revenue\_adj             10731 non-null float64
+dtypes: float64(4), int64(3), object(7)
+memory usage: 1.2+ MB
+
+    \end{Verbatim}
+
+    Let's assume that movies without \texttt{production\_companies} are
+movies produced by independent producers, better know by indie. So we
+are going to fill the nulls with indie to indentify these indie movies.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indie}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 10731 entries, 0 to 10865
+Data columns (total 14 columns):
+id                      10731 non-null int64
+popularity              10731 non-null float64
+cast                    10731 non-null object
+homepage                2893 non-null object
+director                10731 non-null object
+keywords                9306 non-null object
+genres                  10731 non-null object
+production\_companies    10731 non-null object
+release\_date            10731 non-null object
+vote\_count              10731 non-null int64
+vote\_average            10731 non-null float64
+release\_year            10731 non-null int64
+budget\_adj              10731 non-null float64
+revenue\_adj             10731 non-null float64
+dtypes: float64(4), int64(3), object(7)
+memory usage: 1.2+ MB
+
+    \end{Verbatim}
+
+    The \texttt{homepage} info itself is not really useful for us. We just
+need to know if the movie has or not a homepage. Let's change the values
+then: - \texttt{yes} if it has a homepage - \texttt{no} if it doesn't
+have a homepage
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} no     7838
+         yes    2893
+         Name: homepage, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{4. Handling the release
+date}\label{handling-the-release-date}
+
+Actually the \texttt{release\_date} isn't really useful too. The useful
+data for us is: was it released at the beginning or end of the month?
+What month was it? So let's extract those informations!
+
+First let's find if the movie was released in the first half of the
+month
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{is\PYZus{}it\PYZus{}month\PYZus{}first\PYZus{}half} \PY{p}{(}\PY{n}{value}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Takes a date string and verifies if it\PYZsq{}s in the first half of the month or not}
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            value: date in format M/D/Y}
+         \PY{l+s+sd}{        Returns:}
+         \PY{l+s+sd}{            Yes if it\PYZsq{}s in the first half or no if not}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{day} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{value}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{k}{if} \PY{n}{day} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{15}\PY{p}{:}
+                 \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yes}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month\PYZus{}first\PYZus{}half}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{is\PYZus{}it\PYZus{}month\PYZus{}first\PYZus{}half}\PY{p}{)}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month\PYZus{}first\PYZus{}half}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} yes    5619
+         no     5112
+         Name: month\_first\_half, dtype: int64
+\end{Verbatim}
+            
+    Let's find what month was the month released
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 9     1319
+         10    1138
+         12     974
+         8      906
+         1      892
+         6      822
+         3      813
+         5      807
+         11     798
+         4      791
+         7      790
+         2      681
+         Name: release\_month, dtype: int64
+\end{Verbatim}
+            
+    Now we can drop the \texttt{release\_date} column since it's useless for
+us
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    So now our dataset looks like this:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 10731 entries, 0 to 10865
+Data columns (total 15 columns):
+id                      10731 non-null int64
+popularity              10731 non-null float64
+cast                    10731 non-null object
+homepage                10731 non-null object
+director                10731 non-null object
+keywords                9306 non-null object
+genres                  10731 non-null object
+production\_companies    10731 non-null object
+vote\_count              10731 non-null int64
+vote\_average            10731 non-null float64
+release\_year            10731 non-null int64
+budget\_adj              10731 non-null float64
+revenue\_adj             10731 non-null float64
+month\_first\_half        10731 non-null object
+release\_month           10731 non-null int64
+dtypes: float64(4), int64(4), object(7)
+memory usage: 1.3+ MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}        id  popularity                                               cast  \textbackslash{}
+         0  135397   32.985763  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   
+         1   76341   28.419936  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}   
+         2  262500   13.112507  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}   
+         3  140607   11.173104  Harrison Ford|Mark Hamill|Carrie Fisher|Adam D{\ldots}   
+         4  168259    9.335014  Vin Diesel|Paul Walker|Jason Statham|Michelle {\ldots}   
+         
+           homepage          director  \textbackslash{}
+         0      yes   Colin Trevorrow   
+         1      yes     George Miller   
+         2      yes  Robert Schwentke   
+         3      yes       J.J. Abrams   
+         4      yes         James Wan   
+         
+                                                     keywords  \textbackslash{}
+         0  monster|dna|tyrannosaurus rex|velociraptor|island   
+         1   future|chase|post-apocalyptic|dystopia|australia   
+         2  based on novel|revolution|dystopia|sequel|dyst{\ldots}   
+         3              android|spaceship|jedi|space opera|3d   
+         4                car race|speed|revenge|suspense|car   
+         
+                                               genres  \textbackslash{}
+         0  Action|Adventure|Science Fiction|Thriller   
+         1  Action|Adventure|Science Fiction|Thriller   
+         2         Adventure|Science Fiction|Thriller   
+         3   Action|Adventure|Science Fiction|Fantasy   
+         4                      Action|Crime|Thriller   
+         
+                                         production\_companies  vote\_count  \textbackslash{}
+         0  Universal Studios|Amblin Entertainment|Legenda{\ldots}        5562   
+         1  Village Roadshow Pictures|Kennedy Miller Produ{\ldots}        6185   
+         2  Summit Entertainment|Mandeville Films|Red Wago{\ldots}        2480   
+         3          Lucasfilm|Truenorth Productions|Bad Robot        5292   
+         4  Universal Pictures|Original Film|Media Rights {\ldots}        2947   
+         
+            vote\_average  release\_year    budget\_adj   revenue\_adj month\_first\_half  \textbackslash{}
+         0           6.5          2015  1.379999e+08  1.392446e+09              yes   
+         1           7.1          2015  1.379999e+08  3.481613e+08              yes   
+         2           6.3          2015  1.012000e+08  2.716190e+08               no   
+         3           7.5          2015  1.839999e+08  1.902723e+09              yes   
+         4           7.3          2015  1.747999e+08  1.385749e+09              yes   
+         
+            release\_month  
+         0              6  
+         1              5  
+         2              3  
+         3             12  
+         4              4  
+\end{Verbatim}
+            
+    \paragraph{5. Spliting the agregate
+data}\label{spliting-the-agregate-data}
+
+    We are going now to split our agregate data into separated dataframes
+for future analysis. The process I'll be following will be the same for
+all of them.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Split the data into a Series
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    x }\OperatorTok{=}\NormalTok{ df[}\StringTok{'x'}\NormalTok{].}\BuiltInTok{str}\NormalTok{.split(}\StringTok{'|'}\NormalTok{).}\BuiltInTok{apply}\NormalTok{(pd.Series,}\DecValTok{1}\NormalTok{).stack()}
+\end{Highlighting}
+\end{Shaded}
+\item
+  When we call \texttt{stack} it adds a new level of indexing, which we
+  don't need. So let's drop that level
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    x.index.droplevel(}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Let's change the Series name to something which won't conflict with an
+  already existent column at our dataframe
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    x.name }\OperatorTok{=} \StringTok{'x_sep'}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Now we can join our DataFrame with the created Series. It will work
+  because we kept the same index which the DataFrame has (thanks to step
+  2)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    df_x }\OperatorTok{=}\NormalTok{ df.join(x)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  We can drop the older aggregated column
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    df_x.drop(}\StringTok{'x'}\NormalTok{, axis}\OperatorTok{=}\DecValTok{1}\NormalTok{, inplace}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Rename the new column to whatever we want
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    df_x.rename(\{}\StringTok{'x_sep'}\NormalTok{: }\StringTok{'x'}\NormalTok{\}, axis}\OperatorTok{=}\DecValTok{1}\NormalTok{, inplace}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Reset the index (We won't loose reference since we kept the the
+  \texttt{id} column)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{    df_cast.reset_index(drop}\OperatorTok{=}\VariableTok{True}\NormalTok{, inplace}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{enumerate}
+
+And that's it!
+
+Note that we have an algorithm here, so let's define function to split
+our data!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{split\PYZus{}agg\PYZus{}column\PYZus{}into\PYZus{}new\PYZus{}data\PYZus{}series}\PY{p}{(}\PY{n}{column}\PY{p}{,} \PY{n}{dataframe}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{        Split the aggregated data from a column of a dataframe into a new dataframe}
+         \PY{l+s+sd}{        Args:}
+         \PY{l+s+sd}{            column: the column to split}
+         \PY{l+s+sd}{            dataframe: the dataframe containing the data}
+         \PY{l+s+sd}{            sep: the separator which it\PYZsq{}ll be split on}
+         \PY{l+s+sd}{        Returns:}
+         \PY{l+s+sd}{            The new dataframe containing the split data}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{new\PYZus{}column} \PY{o}{=} \PY{n}{column} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}sep}\PY{l+s+s1}{\PYZsq{}}
+             
+             \PY{n}{series} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{sep}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}
+             \PY{n}{series}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{series}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{droplevel}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{series}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{n}{new\PYZus{}column}
+             
+             \PY{n}{df\PYZus{}new} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{series}\PY{p}{)}
+             
+             \PY{n}{df\PYZus{}new}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{column}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{df\PYZus{}new}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{new\PYZus{}column}\PY{p}{:} \PY{n}{column}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{df\PYZus{}new}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{df\PYZus{}new}
+\end{Verbatim}
+
+
+    Let's apply our new function to the aggregated columns: - \texttt{cast}
+- \texttt{genres} - \texttt{director} - \texttt{production\_companies} -
+\texttt{key\_words}
+
+We are going to drop the useless columns for the splitted dataframes
+too. For example, It doesn't matter the aggregated keywords in the
+separeted cast dataframe!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{df\PYZus{}cast} \PY{o}{=} \PY{n}{split\PYZus{}agg\PYZus{}column\PYZus{}into\PYZus{}new\PYZus{}data\PYZus{}series}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df\PYZus{}cast}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}cast}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}        id  popularity homepage  vote\_count  vote\_average  release\_year  \textbackslash{}
+         0  135397   32.985763      yes        5562           6.5          2015   
+         1  135397   32.985763      yes        5562           6.5          2015   
+         2  135397   32.985763      yes        5562           6.5          2015   
+         
+              budget\_adj   revenue\_adj month\_first\_half  release\_month  \textbackslash{}
+         0  1.379999e+08  1.392446e+09              yes              6   
+         1  1.379999e+08  1.392446e+09              yes              6   
+         2  1.379999e+08  1.392446e+09              yes              6   
+         
+                           cast  
+         0          Chris Pratt  
+         1  Bryce Dallas Howard  
+         2          Irrfan Khan  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}genres} \PY{o}{=} \PY{n}{split\PYZus{}agg\PYZus{}column\PYZus{}into\PYZus{}new\PYZus{}data\PYZus{}series}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df\PYZus{}genres}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}genres}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}        id  popularity homepage  vote\_count  vote\_average  release\_year  \textbackslash{}
+         0  135397   32.985763      yes        5562           6.5          2015   
+         1  135397   32.985763      yes        5562           6.5          2015   
+         2  135397   32.985763      yes        5562           6.5          2015   
+         
+              budget\_adj   revenue\_adj month\_first\_half  release\_month           genres  
+         0  1.379999e+08  1.392446e+09              yes              6           Action  
+         1  1.379999e+08  1.392446e+09              yes              6        Adventure  
+         2  1.379999e+08  1.392446e+09              yes              6  Science Fiction  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}director} \PY{o}{=} \PY{n}{split\PYZus{}agg\PYZus{}column\PYZus{}into\PYZus{}new\PYZus{}data\PYZus{}series}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df\PYZus{}director}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}director}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}        id  popularity homepage  vote\_count  vote\_average  release\_year  \textbackslash{}
+         0  135397   32.985763      yes        5562           6.5          2015   
+         1   76341   28.419936      yes        6185           7.1          2015   
+         2  262500   13.112507      yes        2480           6.3          2015   
+         
+              budget\_adj   revenue\_adj month\_first\_half  release\_month  \textbackslash{}
+         0  1.379999e+08  1.392446e+09              yes              6   
+         1  1.379999e+08  3.481613e+08              yes              5   
+         2  1.012000e+08  2.716190e+08               no              3   
+         
+                    director  
+         0   Colin Trevorrow  
+         1     George Miller  
+         2  Robert Schwentke  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{split\PYZus{}agg\PYZus{}column\PYZus{}into\PYZus{}new\PYZus{}data\PYZus{}series}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}        id  popularity homepage  vote\_count  vote\_average  release\_year  \textbackslash{}
+         0  135397   32.985763      yes        5562           6.5          2015   
+         1  135397   32.985763      yes        5562           6.5          2015   
+         2  135397   32.985763      yes        5562           6.5          2015   
+         
+              budget\_adj   revenue\_adj month\_first\_half  release\_month  \textbackslash{}
+         0  1.379999e+08  1.392446e+09              yes              6   
+         1  1.379999e+08  1.392446e+09              yes              6   
+         2  1.379999e+08  1.392446e+09              yes              6   
+         
+            production\_companies  
+         0     Universal Studios  
+         1  Amblin Entertainment  
+         2    Legendary Pictures  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df\PYZus{}keywords} \PY{o}{=} \PY{n}{split\PYZus{}agg\PYZus{}column\PYZus{}into\PYZus{}new\PYZus{}data\PYZus{}series}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df}\PY{p}{)}
+         \PY{n}{df\PYZus{}keywords}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}keywords}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}        id  popularity homepage  vote\_count  vote\_average  release\_year  \textbackslash{}
+         0  135397   32.985763      yes        5562           6.5          2015   
+         1  135397   32.985763      yes        5562           6.5          2015   
+         2  135397   32.985763      yes        5562           6.5          2015   
+         
+              budget\_adj   revenue\_adj month\_first\_half  release\_month  \textbackslash{}
+         0  1.379999e+08  1.392446e+09              yes              6   
+         1  1.379999e+08  1.392446e+09              yes              6   
+         2  1.379999e+08  1.392446e+09              yes              6   
+         
+                     keywords  
+         0            monster  
+         1                dna  
+         2  tyrannosaurus rex  
+\end{Verbatim}
+            
+     \#\# Exploratory Data Analysis
+
+First, let's describe our data to now it better
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}                   id    popularity    vote\_count  vote\_average  release\_year  \textbackslash{}
+         count   10731.000000  10731.000000  10731.000000  10731.000000  10731.000000   
+         mean    65201.741869      0.652615    219.812972      5.964710   2001.259622   
+         std     91470.508056      1.004804    578.815324      0.930283     12.820151   
+         min         5.000000      0.000188     10.000000      1.500000   1960.000000   
+         25\%     10547.500000      0.210765     17.000000      5.400000   1995.000000   
+         50\%     20323.000000      0.387081     39.000000      6.000000   2006.000000   
+         75\%     73948.500000      0.720889    148.000000      6.600000   2011.000000   
+         max    417859.000000     32.985763   9767.000000      9.200000   2015.000000   
+         
+                  budget\_adj   revenue\_adj  release\_month  
+         count  1.073100e+04  1.073100e+04   10731.000000  
+         mean   1.776530e+07  5.200623e+07       6.832448  
+         std    3.446630e+07  1.454252e+08       3.434309  
+         min    0.000000e+00  0.000000e+00       1.000000  
+         25\%    0.000000e+00  0.000000e+00       4.000000  
+         50\%    0.000000e+00  0.000000e+00       7.000000  
+         75\%    2.110885e+07  3.470546e+07      10.000000  
+         max    4.250000e+08  2.827124e+09      12.000000  
+\end{Verbatim}
+            
+    Which are the most popular movies?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{most\PYZus{}popular\PYZus{}movies} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity \PYZgt{} 0.720889}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}ids} \PY{o}{=} \PY{n}{most\PYZus{}popular\PYZus{}movies}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{most\PYZus{}popular\PYZus{}movies}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}          id  popularity                                               cast  \textbackslash{}
+         0    135397   32.985763  Chris Pratt|Bryce Dallas Howard|Irrfan Khan|Vi{\ldots}   
+         1     76341   28.419936  Tom Hardy|Charlize Theron|Hugh Keays-Byrne|Nic{\ldots}   
+         629  157336   24.949134  Matthew McConaughey|Jessica Chastain|Anne Hath{\ldots}   
+         630  118340   14.311205  Chris Pratt|Zoe Saldana|Dave Bautista|Vin Dies{\ldots}   
+         2    262500   13.112507  Shailene Woodley|Theo James|Kate Winslet|Ansel{\ldots}   
+         
+             homepage           director  \textbackslash{}
+         0        yes    Colin Trevorrow   
+         1        yes      George Miller   
+         629      yes  Christopher Nolan   
+         630      yes         James Gunn   
+         2        yes   Robert Schwentke   
+         
+                                                       keywords  \textbackslash{}
+         0    monster|dna|tyrannosaurus rex|velociraptor|island   
+         1     future|chase|post-apocalyptic|dystopia|australia   
+         629  saving the world|artificial intelligence|fathe{\ldots}   
+         630  marvel comic|spaceship|space|scene during end {\ldots}   
+         2    based on novel|revolution|dystopia|sequel|dyst{\ldots}   
+         
+                                                 genres  \textbackslash{}
+         0    Action|Adventure|Science Fiction|Thriller   
+         1    Action|Adventure|Science Fiction|Thriller   
+         629            Adventure|Drama|Science Fiction   
+         630           Action|Science Fiction|Adventure   
+         2           Adventure|Science Fiction|Thriller   
+         
+                                           production\_companies  vote\_count  \textbackslash{}
+         0    Universal Studios|Amblin Entertainment|Legenda{\ldots}        5562   
+         1    Village Roadshow Pictures|Kennedy Miller Produ{\ldots}        6185   
+         629  Paramount Pictures|Legendary Pictures|Warner B{\ldots}        6498   
+         630  Marvel Studios|Moving Picture Company (MPC)|Bu{\ldots}        5612   
+         2    Summit Entertainment|Mandeville Films|Red Wago{\ldots}        2480   
+         
+              vote\_average  release\_year    budget\_adj   revenue\_adj month\_first\_half  \textbackslash{}
+         0             6.5          2015  1.379999e+08  1.392446e+09              yes   
+         1             7.1          2015  1.379999e+08  3.481613e+08              yes   
+         629           8.0          2014  1.519800e+08  5.726906e+08              yes   
+         630           7.9          2014  1.565855e+08  7.122911e+08               no   
+         2             6.3          2015  1.012000e+08  2.716190e+08               no   
+         
+              release\_month  
+         0                6  
+         1                5  
+         629             11  
+         630              7  
+         2                3  
+\end{Verbatim}
+            
+    Which are the most profitable movies?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{most\PYZus{}profitable\PYZus{}movies} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj \PYZgt{} 3.470546e+07}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}ids} \PY{o}{=} \PY{n}{most\PYZus{}profitable\PYZus{}movies}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{most\PYZus{}profitable\PYZus{}movies}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}           id  popularity                                               cast  \textbackslash{}
+         1386   19995    9.432768  Sam Worthington|Zoe Saldana|Sigourney Weaver|S{\ldots}   
+         1329      11   12.037933  Mark Hamill|Harrison Ford|Carrie Fisher|Peter {\ldots}   
+         5231     597    4.355219  Kate Winslet|Leonardo DiCaprio|Frances Fisher|{\ldots}   
+         10594   9552    2.010733  Linda Blair|Max von Sydow|Ellen Burstyn|Jason {\ldots}   
+         9806     578    2.563191  Roy Scheider|Robert Shaw|Richard Dreyfuss|Lorr{\ldots}   
+         
+               homepage          director  \textbackslash{}
+         1386       yes     James Cameron   
+         1329       yes      George Lucas   
+         5231       yes     James Cameron   
+         10594      yes  William Friedkin   
+         9806       yes  Steven Spielberg   
+         
+                                                         keywords  \textbackslash{}
+         1386   culture clash|future|space war|space colony|so{\ldots}   
+         1329         android|galaxy|hermit|death star|lightsaber   
+         5231                shipwreck|iceberg|ship|panic|titanic   
+         10594  exorcism|holy water|religion and supernatural|{\ldots}   
+         9806   fishing|atlantic ocean|bathing|shipwreck|polic{\ldots}   
+         
+                                                  genres  \textbackslash{}
+         1386   Action|Adventure|Fantasy|Science Fiction   
+         1329           Adventure|Action|Science Fiction   
+         5231                     Drama|Romance|Thriller   
+         10594                     Drama|Horror|Thriller   
+         9806                  Horror|Thriller|Adventure   
+         
+                                             production\_companies  vote\_count  \textbackslash{}
+         1386   Ingenious Film Partners|Twentieth Century Fox {\ldots}        8458   
+         1329    Lucasfilm|Twentieth Century Fox Film Corporation        4428   
+         5231   Paramount Pictures|Twentieth Century Fox Film {\ldots}        4654   
+         10594                      Warner Bros.|Hoya Productions        1113   
+         9806         Universal Pictures|Zanuck/Brown Productions        1415   
+         
+                vote\_average  release\_year    budget\_adj   revenue\_adj  \textbackslash{}
+         1386            7.1          2009  2.408869e+08  2.827124e+09   
+         1329            7.9          1977  3.957559e+07  2.789712e+09   
+         5231            7.3          1997  2.716921e+08  2.506406e+09   
+         10594           7.2          1973  3.928928e+07  2.167325e+09   
+         9806            7.3          1975  2.836275e+07  1.907006e+09   
+         
+               month\_first\_half  release\_month  
+         1386               yes             12  
+         1329                no              3  
+         5231                no             11  
+         10594               no             12  
+         9806                no              6  
+\end{Verbatim}
+            
+    \subsubsection{Are popular movies
+profitable?}\label{are-popular-movies-profitable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity x Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see that most unpopular movies have low revenue, but the inverse
+is not true! We have popular movies with low revenue and vice versa
+
+    \subsubsection{Does the budget makes a movie
+popular?}\label{does-the-budget-makes-a-movie-popular}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Budget x Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    No, the budget doesn't seems to makes a movie popular!
+
+    \subsubsection{Does the budget makes a movie
+profitable?}\label{does-the-budget-makes-a-movie-profitable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Budget x Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    No, the budget doesn't seem to make a movie profitable!
+
+    \subsubsection{Have a homepage impacts in the movie
+popularity?}\label{have-a-homepage-impacts-in-the-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{df\PYZus{}homepage} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movies which have homepage are populars?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Has Homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{df\PYZus{}homepage}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}homepage}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    If you compare with the max popularity, the difference between to have
+and not a homepage is so slight that we can say: no it doesn't impact.
+
+    \subsubsection{Have a homepage impacts in the movie
+revenue?}\label{have-a-homepage-impacts-in-the-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{df\PYZus{}homepage} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movies which have homepage are profitable?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Has Homepage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{df\PYZus{}homepage}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}homepage}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    If you compare with the max revenue, the difference between to have and
+not a homepage is so slight that we can say: no it doesn't impact.
+
+    \subsubsection{Is the year relevant to the movie
+popularity?}\label{is-the-year-relevant-to-the-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{df\PYZus{}year} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity of movies over the years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df\PYZus{}year}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}year}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Yes! Movies seems to be getting more popular over the years!
+
+    \subsubsection{Is the year relevant to the movie
+revenue?}\label{is-the-year-relevant-to-the-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{df\PYZus{}year} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue of movies over the years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df\PYZus{}year}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}year}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    No, the years doesn't seem to be a fact which impacts in the revenue
+(adjusted by the inflaction)
+
+    \subsubsection{Does the release month impact in the movie
+popularity?}\label{does-the-release-month-impact-in-the-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{df\PYZus{}month} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity of movies over months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{df\PYZus{}month}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}month}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It seems that movies released at the middle of the year are slightly
+more popular
+
+    \subsubsection{Does the release month impact in the movie
+revenue?}\label{does-the-release-month-impact-in-the-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{df\PYZus{}month} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{release\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue of movies over months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Months}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{df\PYZus{}month}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}month}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_75_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The revenue follows the same pattern as the popularity. Release movies
+by May, June and July is a good deal!
+
+    \subsubsection{Does a movie be released in the first half of the month
+impacts in the movie
+popularity?}\label{does-a-movie-be-released-in-the-first-half-of-the-month-impacts-in-the-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{df\PYZus{}released\PYZus{}first\PYZus{}half} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month\PYZus{}first\PYZus{}half}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Movies which were released in the first half of the month are more popular?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Released in the first half}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{df\PYZus{}released\PYZus{}first\PYZus{}half}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{df\PYZus{}released\PYZus{}first\PYZus{}half}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    No it doesn't impact
+
+    \subsubsection{Is there a relation between the movie popularity and the
+votes count in the
+mdb?}\label{is-there-a-relation-between-the-movie-popularity-and-the-votes-count-in-the-mdb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity x Vote Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vote Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The is a relation between popularity and vote count!
+
+    \subsubsection{Is there a relation between the movie popularity and the
+votes average in the
+mdb?}\label{is-there-a-relation-between-the-movie-popularity-and-the-votes-average-in-the-mdb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity x Vote Average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vote Average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_84_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Movies with higher vote average seems to be more popular!
+
+    \subsubsection{Does a superstar impacts on a movie
+popularity?}\label{does-a-superstar-impacts-on-a-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}cast} \PY{o}{=} \PY{n}{df\PYZus{}cast}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}cast}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}cast} \PY{o}{=} \PY{n}{df\PYZus{}cast}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}cast}\PY{p}{]}
+\end{Verbatim}
+
+
+    \paragraph{Which actors appears more in popular
+movies?}\label{which-actors-appears-more-in-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{top\PYZus{}cast} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}cast}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors whose most acted in popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Times in popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}cast}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}cast}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_89_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which actors appears in the most popular
+movies?}\label{which-actors-appears-in-the-most-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{most\PYZus{}popular\PYZus{}actors} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}cast}\PY{p}{[}\PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}cast}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}cast}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{popular\PYZus{}actors} \PY{o}{=} \PY{n}{most\PYZus{}popular\PYZus{}actors}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors whose acts in the most popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{popular\PYZus{}actors}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{popular\PYZus{}actors}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_91_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a superstar impacts in a movie
+revenue?}\label{does-a-superstar-impacts-in-a-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}cast} \PY{o}{=} \PY{n}{df\PYZus{}cast}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}cast}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}cast} \PY{o}{=} \PY{n}{df\PYZus{}cast}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}cast}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}cast}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} (13413, 11)
+\end{Verbatim}
+            
+    \paragraph{Which actors appears more in profitable
+movies?}\label{which-actors-appears-more-in-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{top\PYZus{}prof\PYZus{}cast} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}cast}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors whose acted more in profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Times in profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}cast}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}prof\PYZus{}cast}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_95_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which actors acted in the most profitable
+movies?}\label{which-actors-acted-in-the-most-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{most\PYZus{}prof\PYZus{}actors} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}cast}\PY{p}{[}\PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}cast}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}cast}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{profitable\PYZus{}actors} \PY{o}{=} \PY{n}{most\PYZus{}prof\PYZus{}actors}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors whose acted in the most profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Revenue (billions)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{profitable\PYZus{}actors}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{profitable\PYZus{}actors}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a genre impacts in a movie
+popularity?}\label{does-a-genre-impacts-in-a-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}genres} \PY{o}{=} \PY{n}{df\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}genres}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}genres} \PY{o}{=} \PY{n}{df\PYZus{}genres}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}genres}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}genres}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} (7324, 11)
+\end{Verbatim}
+            
+    \paragraph{Which genres appears most in popular
+movies?}\label{which-genres-appears-most-in-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{top\PYZus{}genres} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}genres}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres which appears more in popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quantity of popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}genres}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which genres has more impact in the movies
+popularity?}\label{which-genres-has-more-impact-in-the-movies-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{most\PYZus{}popular\PYZus{}genres} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}genres}\PY{p}{[}\PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}genres}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{popular\PYZus{}genres} \PY{o}{=} \PY{n}{most\PYZus{}popular\PYZus{}genres}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres which appears in the most popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{popular\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{popular\PYZus{}genres}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a genre impacts in a movie
+revenue?}\label{does-a-genre-impacts-in-a-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}genres} \PY{o}{=} \PY{n}{df\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}genres}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}genres} \PY{o}{=} \PY{n}{df\PYZus{}genres}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}genres}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}genres}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} (7384, 11)
+\end{Verbatim}
+            
+    \paragraph{Which genres has more profitable
+movies?}\label{which-genres-has-more-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{top\PYZus{}prof\PYZus{}genres} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}genres}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres which most appears in profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quantity of profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}prof\PYZus{}genres}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which genres has the most profitable
+movies?}\label{which-genres-has-the-most-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{most\PYZus{}prof\PYZus{}genres} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}genres}\PY{p}{[}\PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}genres}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{profitable\PYZus{}genres} \PY{o}{=} \PY{n}{most\PYZus{}prof\PYZus{}genres}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genres which has the most profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Revenue (billions)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{profitable\PYZus{}genres}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{profitable\PYZus{}genres}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a director impacts in a movie
+popularity?}\label{does-a-director-impacts-in-a-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}director} \PY{o}{=} \PY{n}{df\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}director}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}director} \PY{o}{=} \PY{n}{df\PYZus{}director}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}director}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}director}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} (2952, 11)
+\end{Verbatim}
+            
+    \paragraph{Which directors have more popular
+movies?}\label{which-directors-have-more-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{top\PYZus{}director} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}director}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors which have more popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popular movies directed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}director}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_113_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which directors have the most popular
+movies?}\label{which-directors-have-the-most-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{most\PYZus{}popular\PYZus{}director} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}director}\PY{p}{[}\PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}director}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{popular\PYZus{}director} \PY{o}{=} \PY{n}{most\PYZus{}popular\PYZus{}director}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors which have the most popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{popular\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{popular\PYZus{}director}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a director impacts in a movie
+revenue?}\label{does-a-director-impacts-in-a-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}director} \PY{o}{=} \PY{n}{df\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}director}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}director} \PY{o}{=} \PY{n}{df\PYZus{}director}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}director}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}director}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} (2898, 11)
+\end{Verbatim}
+            
+    \paragraph{Which directors has more profitable
+movies?}\label{which-directors-has-more-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{top\PYZus{}prof\PYZus{}director} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}director}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors which have more profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Profitable movies directed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}prof\PYZus{}director}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_119_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which directors have the most profitable
+movies?}\label{which-directors-have-the-most-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{most\PYZus{}prof\PYZus{}director} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}director}\PY{p}{[}\PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}director}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{profitable\PYZus{}director} \PY{o}{=} \PY{n}{most\PYZus{}prof\PYZus{}director}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors which have the most profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Revenue (billions)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Directors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{profitable\PYZus{}director}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{profitable\PYZus{}director}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_121_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a production impact in a movie
+popularity?}\label{does-a-production-impact-in-a-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}prod\PYZus{}comp}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} (7828, 11)
+\end{Verbatim}
+            
+    \paragraph{Which production companies have more popular
+movies?}\label{which-production-companies-have-more-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{top\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies which have more popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Popular movies produced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}prod\PYZus{}comp}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_125_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which Production Companies have the most popular
+movies?}\label{which-production-companies-have-the-most-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{most\PYZus{}popular\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{popular\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{most\PYZus{}popular\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies which have the most popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{popular\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{popular\PYZus{}prod\PYZus{}comp}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_127_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a Production Company impact in a movie
+revenue?}\label{does-a-production-company-impact-in-a-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{df\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}prod\PYZus{}comp}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} (7381, 11)
+\end{Verbatim}
+            
+    \paragraph{Which Production Company has more profitable
+movies?}\label{which-production-company-has-more-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{top\PYZus{}prof\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies which have more profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Profitable movies produced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}prof\PYZus{}prod\PYZus{}comp}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_131_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which production companies have the most profitable
+mvoies?}\label{which-production-companies-have-the-most-profitable-mvoies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{most\PYZus{}prof\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}prod\PYZus{}comp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{profitable\PYZus{}prod\PYZus{}comp} \PY{o}{=} \PY{n}{most\PYZus{}prof\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{production\PYZus{}companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies which have the most profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Revenue (billions)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production Companies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{profitable\PYZus{}prod\PYZus{}comp}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{profitable\PYZus{}prod\PYZus{}comp}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_133_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a keyword impact in the movie
+popularity?}\label{does-a-keyword-impact-in-the-movie-popularity}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}keywords} \PY{o}{=} \PY{n}{df\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}keywords}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}keywords} \PY{o}{=} \PY{n}{df\PYZus{}keywords}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}popular\PYZus{}movies\PYZus{}indexes\PYZus{}keywords}\PY{p}{]}
+         \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}keywords}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} (11871, 11)
+\end{Verbatim}
+            
+    \paragraph{Which keywords appears in more popular
+movies?}\label{which-keywords-appears-in-more-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{top\PYZus{}keywords} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}keywords}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords which appears in more popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Times in popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}keywords}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_137_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which keywords appear in the most popular
+movies?}\label{which-keywords-appear-in-the-most-popular-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{most\PYZus{}popular\PYZus{}keywords} \PY{o}{=} \PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}keywords}\PY{p}{[}\PY{n}{top\PYZus{}popular\PYZus{}movies\PYZus{}keywords}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{popular\PYZus{}keywords} \PY{o}{=} \PY{n}{most\PYZus{}popular\PYZus{}keywords}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords which appear in the most popular movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{popular\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{popular\PYZus{}keywords}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_139_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Does a keyword impact in the movie
+revenue?}\label{does-a-keyword-impact-in-the-movie-revenue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}keywords} \PY{o}{=} \PY{n}{df\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{in1d}\PY{p}{(}\PY{n}{df\PYZus{}keywords}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}ids}\PY{p}{)}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}keywords} \PY{o}{=} \PY{n}{df\PYZus{}keywords}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{most\PYZus{}profitable\PYZus{}movies\PYZus{}indexes\PYZus{}keywords}\PY{p}{]}
+         \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}keywords}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} (12074, 11)
+\end{Verbatim}
+            
+    \paragraph{Which keywords appears in more profitable
+movies?}\label{which-keywords-appears-in-more-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{top\PYZus{}prof\PYZus{}keywords} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}keywords}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords which appears in more profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Times in profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{top\PYZus{}prof\PYZus{}keywords}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_143_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Which keywords appears in the most profitable
+movies?}\label{which-keywords-appears-in-the-most-profitable-movies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{most\PYZus{}prof\PYZus{}keywords} \PY{o}{=} \PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}keywords}\PY{p}{[}\PY{n}{top\PYZus{}profitable\PYZus{}movies\PYZus{}keywords}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{top\PYZus{}prof\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{]}
+         \PY{n}{profitable\PYZus{}keywords} \PY{o}{=} \PY{n}{most\PYZus{}prof\PYZus{}keywords}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue\PYZus{}adj}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords which appears in the most profitable movies}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Revenue (billions)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keywords}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{profitable\PYZus{}keywords}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{profitable\PYZus{}keywords}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_145_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     \#\# Conclusions
+
+\begin{itemize}
+\item
+  Big budget's movies aren't necessary populars or profitable
+\item
+  A movie can be profitable and not popular at the same time. Actually
+  the most popular movie isn't the most profitable and vice-versa
+\item
+  Movies are getting more popular over the years, but less profitable
+  (if we adjust to the inflation)
+\item
+  Release a movie between May and July seems to impact in the movies
+  popularity and revenue
+\item
+  Popular movies tends to have more votes at ImdB and better vote
+  average
+\item
+  Actors and Directors seems to impact more in the movie revenue
+\item
+  If we would write a receipt for a popular movie, it would be:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cast:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Samuel L. Jackson
+    \item
+      Brad Pitt
+    \item
+      Tom Hanks
+    \item
+      Liam Neeson
+    \item
+      Arnold Schwarzenegger
+    \end{itemize}
+  \item
+    Genre:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Science Fiction
+    \item
+      Adventure
+    \end{itemize}
+  \item
+    Directed by:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Peter Jackson
+    \item
+      Quentin Tarantino
+    \end{itemize}
+  \item
+    Produced by:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Amblin Entertainment
+    \item
+      Village Roadshow Pictures
+    \end{itemize}
+  \item
+    Having the thematic (keyword)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Dystopia
+    \item
+      Sequel
+    \end{itemize}
+  \end{itemize}
+\item
+  If we would write a receipt for a profitable movie, it would be:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Cast:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Staring because he is really profitable: Harrison Ford
+    \item
+      Tom Cruise
+    \item
+      Tom Hanks
+    \item
+      Jhonny Depp
+    \item
+      Eddie Murphy
+    \end{itemize}
+  \item
+    Genre: Adventure
+  \item
+    Directed by: Steven Spielberg
+  \item
+    Produced by: Amblin Entertainment
+  \item
+    Having the thematic (keyword)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Sequel
+    \item
+      Spy
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
